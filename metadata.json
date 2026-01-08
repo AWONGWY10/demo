@@ -1,0 +1,5 @@
+{
+  "name": "FinSight AI",
+  "description": "An advanced financial analysis portal powered by Gemini AI. Ingest financial documents, generate deep insights, perform historical internal benchmarking, and compare against real-time external market data (MY/AU) using AI-driven search grounding.",
+  "requestFramePermissions": []
+}
