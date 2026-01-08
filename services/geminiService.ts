@@ -1,8 +1,11 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { FinancialReport, BenchmarkResult, MarketRegion } from "../types";
 
-// Initialize Gemini
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Lazy initialization helper to prevent top-level crashes if API key is missing
+const getAI = () => {
+  const apiKey = process.env.API_KEY || ''; 
+  return new GoogleGenAI({ apiKey });
+};
 
 const METRICS_SCHEMA = {
   type: Type.OBJECT,
@@ -40,6 +43,7 @@ export const analyzeDocument = async (
   fileName: string
 ): Promise<FinancialReport> => {
   try {
+    const ai = getAI();
     const response = await ai.models.generateContent({
       model: "gemini-3-pro-preview", // High reasoning for financial docs
       contents: {
@@ -121,6 +125,7 @@ export const performBenchmark = async (
   }
 
   try {
+    const ai = getAI();
     const response = await ai.models.generateContent({
       model: "gemini-3-pro-preview",
       contents: promptText,
